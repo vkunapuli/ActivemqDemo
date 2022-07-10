@@ -3,6 +3,8 @@ package com.sssystems.activemqdemo.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sssystems.activemqdemo.messge.SampleMessage;
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +12,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.jms.TextMessage;
+import javax.jms.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
@@ -33,7 +35,7 @@ public class ActivemqController {
     }
     @GetMapping("/sendMessage")
     public String hello() throws Exception {
-        IntStream.range(0, messagesPerRequest)
+        /*IntStream.range(0, messagesPerRequest)
                 .forEach(i -> {
                     SampleMessage message = new SampleMessage("Test message-"+i, i);
                     try{
@@ -48,6 +50,15 @@ public class ActivemqController {
         });
         //listener.getLatch().await(60, TimeUnit.SECONDS);
         //logger.info("All messages received");
-        return "All messages send!";
+        return "All messages send!";*/
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("broker url");
+        Destination destination =  new ActiveMQQueue("my queue");
+        Connection connection = connectionFactory.createConnection("username", "password");
+        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        //Destination destination = session.createQueue("my queue");
+        MessageProducer producer  = session.createProducer(destination);
+        TextMessage message = session.createTextMessage();
+        message.setText("Hello Activemq, my first message");
+        producer.send(message);
     }
 }
