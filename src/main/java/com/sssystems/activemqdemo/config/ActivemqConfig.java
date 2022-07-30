@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
@@ -16,8 +17,9 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Session;
 
+//@Configuration
 public class ActivemqConfig {
-    @Value("${spring.activemq.broker-url}")
+/*   @Value("${spring.activemq.broker-url}")
     String BROKER_URL;
     @Value("${spring.activemq.user}")
     String BROKER_USERNAME;
@@ -29,7 +31,7 @@ public class ActivemqConfig {
         ActiveMQConnectionFactory connectionFactory = new  ActiveMQConnectionFactory();
         connectionFactory.setTrustAllPackages(true);
         connectionFactory.setBrokerURL(BROKER_URL);
-        connectionFactory.setG
+        connectionFactory.setTrustAllPackages(true);
        // connectionFactory.setPassword(BROKER_USERNAME);
         //connectionFactory.setUserName(BROKER_PASSWORD);
         return connectionFactory;
@@ -80,5 +82,5 @@ public class ActivemqConfig {
             }
         };
     }
-
+*/
 }

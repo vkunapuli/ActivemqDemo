@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @ConfigurationProperties(prefix="config")
 @RefreshScope
 public class ConfigClientController {
-    @Value("${feature1}")
+    /*@Value("${feature1}")
     private String feature1;
     @Value("${feature2}")
     private String feature2;
@@ -29,13 +29,13 @@ public class ConfigClientController {
     @Value("${feature4.vendor2.group1}")
     private String feature421;
     @Value("${feature4.vendor2.group1}")
-    private String feature422;
+    private String feature422;*/
 
     @GetMapping(
             value = "/feature-toggles/{feature}",
             produces = MediaType.TEXT_PLAIN_VALUE)
     public String featureToggles(@PathVariable("feature") String feature) {
-        switch (feature) {
+        /*switch (feature) {
             case "feature1":
                 return String.format("Hello! '%s' status is '%s' ...\n", feature, feature1);
             case "feature2":
@@ -54,6 +54,7 @@ public class ConfigClientController {
                 return String.format("Hello!  '%s'  status is '%s' ...\n", feature,feature422);
             default:
                 return "Unknown feature, please enter valid feature";
-        }
+        }*/
+        return "na";
     }
 }
